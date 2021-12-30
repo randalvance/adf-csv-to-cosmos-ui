@@ -33,5 +33,5 @@ stages:
                 - task: AzureStaticWebApp@0
                   displayName: Deploy Static Website
                   inputs:
-                    app_location: $(Pipeline.Workspace)/dist
+                    app_location: $(Pipeline.Workspace)/ui
                     azure_static_web_apps_api_token: $(StaticWebsiteDeploymentToken)
