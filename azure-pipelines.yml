@@ -21,7 +21,7 @@ stages:
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(System.DefaultWorkingDirectory)/dist'
-              artifact: dist
+              artifact: ui
               publishLocation: pipeline
   - stage: Release_DEV
     displayName: Release - DEV
@@ -39,4 +39,4 @@ stages:
                     scriptType: bash
                     scriptLocation: inlineScript
                     inlineScript: |
-                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmosdev -s $(Build.StagingDirectory)/dist
+                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmosdev -s $(Pipeline.Workspace)/ui
