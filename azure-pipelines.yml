@@ -5,6 +5,10 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  - name: ServiceConnection
+    value: AzureServiceConnection
+
 stages:
   - stage: Build_Static
     displayName: Build Static Website
@@ -28,4 +32,11 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: DownloadPipelineArtifact@2
+                - task: AzureFileCopy@4
+                  displayName: Copy to Azure Storage
+                  inputs:
+                    SourcePath: $(Build.StagingDirectory)/dist
+                    azureSubscription: "$(ServiceConnection)"
+                    Destination: AzureBlob
+                    storage: adfcsvcosmosdev
+                    ContainerName: "$web"
