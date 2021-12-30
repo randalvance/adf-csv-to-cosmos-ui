@@ -19,3 +19,13 @@ stages:
               targetPath: '$(System.DefaultWorkingDirectory)/dist'
               artifact: dist
               publishLocation: pipeline
+  - stage: Release_DEV
+    displayName: Release - DEV
+    jobs:
+      - deployment: Deployment
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadPipelineArtifact@2
