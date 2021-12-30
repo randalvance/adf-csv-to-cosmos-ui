@@ -33,6 +33,5 @@ stages:
                 - task: AzureStaticWebApp@0
                   displayName: Deploy Static Website
                   inputs:
-                    skip_app_build: true
-                    output_location: $(Pipeline.Workspace)/dist
+                    app_location: $(Pipeline.Workspace)/dist
                     azure_static_web_apps_api_token: $(StaticWebsiteDeploymentToken)
