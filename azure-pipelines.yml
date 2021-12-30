@@ -39,4 +39,4 @@ stages:
                     scriptType: bash
                     scriptLocation: inlineScript
                     inlineScript: |
-                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmosdev -s $(Pipeline.Workspace)/ui
+                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmosdev -s $(Pipeline.Workspace)/ui --auth-mode login
