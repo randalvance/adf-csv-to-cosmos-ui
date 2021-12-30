@@ -25,6 +25,8 @@ stages:
               publishLocation: pipeline
   - stage: Release_DEV
     displayName: Release - DEV
+    variables:
+      - group: dev
     jobs:
       - deployment: Deployment
         environment: dev
@@ -32,11 +34,10 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: AzureCLI@2
-                  displayName: Copy to Azure Storage
+                - task: AzureStaticWebApp@0
+                  displayName: Deploy Static Website
                   inputs:
-                    azureSubscription: $(ServiceConnection)
-                    scriptType: bash
-                    scriptLocation: inlineScript
-                    inlineScript: |
-                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmosdev -s $(Pipeline.Workspace)/ui --auth-mode login
+                    app_build_command: npm run build
+                    app_location: /
+                    output_location: dist
+                    azure_static_web_apps_api_token: $(StaticWebsiteDeploymentToken)
