@@ -33,7 +33,6 @@ stages:
                 - task: AzureStaticWebApp@0
                   displayName: Deploy Static Website
                   inputs:
-                    app_build_command: npm run build
-                    app_location: /
-                    output_location: dist
+                    skip_app_build: true
+                    output_location: $(Pipeline.Workspace)/dist
                     azure_static_web_apps_api_token: $(StaticWebsiteDeploymentToken)
