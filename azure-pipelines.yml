@@ -5,6 +5,10 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  - name: ServiceConnection
+    value: AzureServiceConnection
+
 stages:
   - stage: Build_Static
     displayName: Build Static Website
@@ -21,8 +25,6 @@ stages:
               publishLocation: pipeline
   - stage: Release_DEV
     displayName: Release - DEV
-    variables:
-      - group: dev
     jobs:
       - deployment: Deployment
         environment: dev
@@ -30,8 +32,11 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: AzureStaticWebApp@0
-                  displayName: Deploy Static Website
+                - task: AzureCLI@2
+                  displayName: Copy to Azure Storage
                   inputs:
-                    app_location: $(Pipeline.Workspace)/ui
-                    azure_static_web_apps_api_token: $(StaticWebsiteDeploymentToken)
+                    azureSubscription: $(ServiceConnection)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      az storage blob upload-batch -d '$web' --account-name adfcsvcosmoswebdev -s $(Pipeline.Workspace)/ui
