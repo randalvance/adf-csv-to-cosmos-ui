@@ -8,12 +8,13 @@
     </uploader>
 </template>
 <script>
+import config from '../config';
 
 export default {
     data: function() {
         return {
             options: {
-                target: 'https://localhost:7171/upload'
+                target: `${config.backendUrl}/upload`
             }
         }
     }
