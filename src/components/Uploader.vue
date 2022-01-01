@@ -1,10 +1,15 @@
 <template>
-    <uploader :options="options" class="uploader">
-        <uploader-unsupport></uploader-unsupport>
+    <uploader :options="options" class="uploader"
+              @upload-start="onUploadStart"
+              @complete="onComplete"
+              @file-error="onFileError"
+              @file-progress="onFileProgress"
+              ref="uploader">
         <uploader-drop>
-            <p>Drop Files Here to Upload</p>
-            <uploader-btn>Select Files</uploader-btn>
+            <p>Drop files here to upload or</p>
+            <uploader-btn single>Browse File</uploader-btn>
         </uploader-drop>
+        <uploader-list></uploader-list>
     </uploader>
 </template>
 <script>
@@ -13,9 +18,26 @@ import config from '../config';
 export default {
     data: function() {
         return {
+            isUploading: false,
+            error: '',
             options: {
                 target: `${config.backendUrl}/upload`
             }
+        }
+    },
+    methods: {
+        onUploadStart() {
+            this.isUploading = true
+        },
+        onComplete() {
+            this.isUploading = false
+        },
+        onFileError(_rootFile, _file, message) {
+            this.isUploading = false
+            this.error = message
+        },
+        onFileProgress() {
+            console.log(this.$refs.uploader.uploader.progress())
         }
     }
 }
