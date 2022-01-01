@@ -29,7 +29,8 @@ stages:
       - deployment: Deployment
         environment: dev
         variables:
-          - group: dev
+          - name: Environment
+            value: dev
         strategy:
           runOnce:
             deploy:
@@ -38,7 +39,7 @@ stages:
                   displayName: Update Environment Config
                   inputs:
                     targetType: inline
-                    script: sed 's/BACKEND_URL/https:\/\/adf-csv-to-cosmos-$(Environment).azurewebsites.net/g' $(Pipeline.Workspace)/ui/config.js
+                    script: sed -i 's/BACKEND_URL/https:\/\/adf-csv-to-cosmos-$(Environment).azurewebsites.net/g' $(Pipeline.Workspace)/ui/config.js
                 - task: AzureCLI@2
                   displayName: Copy to Azure Storage
                   inputs:
