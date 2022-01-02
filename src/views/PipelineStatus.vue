@@ -25,12 +25,12 @@ export default {
                 const response = await fetch(`${config.backendUrl}/upload/pipeline-status/${this.pipelineRunId}`);
                 const result = await response.json();
                 this.pipelineStatus = result.status;
-
-                if (this.pipelineStatus !== 'InProgress') {
-                    clearInterval(this.intervalId);
-                } else if (this.pipelineStatus === 'Succeeded') {
+                
+                if (this.pipelineStatus === 'Succeeded') {
                     this.$router.push({ path: `/data/${this.pipelineRunId}` });
-                }
+                } else if (this.pipelineStatus !== 'InProgress') {
+                    clearInterval(this.intervalId);
+                } 
             } catch (error) {
                 this.pipelineStatus = 'Error: Pipeline Not Found';
                 clearInterval(this.intervalId);
