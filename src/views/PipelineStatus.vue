@@ -7,7 +7,7 @@ import config from '../config';
 export default {
     data() {
         return {
-            pipelineStatus: 'Pending',
+            pipelineStatus: 'Queued',
             intervalId: null
         }
     },
