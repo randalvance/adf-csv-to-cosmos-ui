@@ -17,7 +17,7 @@ export default {
             options: {
                 target: `${config.backendUrl}/upload`,
                 testChunks: false,
-                chunkSize: 10, // Upload in chunks of 10mb
+                chunkSize: 100, // Upload in chunks of 10mb
                 generateUniqueIdentifier: () => uuid()
             },
             attrs: {
