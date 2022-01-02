@@ -26,8 +26,10 @@ export default {
                 const result = await response.json();
                 this.pipelineStatus = result.status;
 
-                if (this.pipelineStatus !== 'Pending') {
+                if (this.pipelineStatus !== 'InProgress') {
                     clearInterval(this.intervalId);
+                } else if (this.pipelineStatus === 'Succeeded') {
+                    this.$router.push({ path: `/data/${this.pipelineRunId}` });
                 }
             } catch (error) {
                 this.pipelineStatus = 'Error: Pipeline Not Found';
