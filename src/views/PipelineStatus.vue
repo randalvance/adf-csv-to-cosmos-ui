@@ -30,6 +30,7 @@ export default {
                     clearInterval(this.intervalId);
                 }
             } catch (error) {
+                this.pipelineStatus = 'Error: Pipeline Not Found';
                 clearInterval(this.intervalId);
             }
         }
