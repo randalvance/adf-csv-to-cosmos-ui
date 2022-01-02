@@ -1,11 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import uploader from 'vue-simple-uploader'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './App.vue';
+import uploader from 'vue-simple-uploader';
+import router from './router'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-Vue.use(uploader)
+Vue.use(VueRouter);
+Vue.use(uploader);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  render: h => h(App)
+}).$mount('#app');

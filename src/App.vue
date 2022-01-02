@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <Uploader />
+    <h1>CSV to CosmosDB Using Azure Data Pipeline</h1>
+    <div class="content">
+      <router-view/>
+    </div>
   </div>
 </template>
-
-<script>
-import Uploader from './components/Uploader.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Uploader
-  }
-}
-</script>
 
 <style>
 #app {
@@ -22,6 +14,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

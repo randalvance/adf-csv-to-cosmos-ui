@@ -1,5 +1,5 @@
 <template>
-    <uploader :options="options" class="uploader">
+    <uploader :options="options" class="uploader" @file-success="onFileSuccess">
         <uploader-drop>
             <p>Drop files here to upload or</p>
             <uploader-btn :attrs="attrs" single>Browse File</uploader-btn>
@@ -17,13 +17,19 @@ export default {
             options: {
                 target: `${config.backendUrl}/upload`,
                 testChunks: false,
-                chunkSize: 100, // Upload in chunks of 10mb
+                chunkSize: 10 * 1024 * 1024, // Upload in chunks of 10mb
                 generateUniqueIdentifier: () => uuid()
             },
             attrs: {
                 accept: '.csv'
             }
         }
+    },
+    methods: {
+      onFileSuccess(_rootFile, _file, message) {
+        const pipelineRunId = JSON.parse(message).pipelineRunId;
+        this.$router.push({ path: `/status/${pipelineRunId}` });
+      }
     }
 }
 </script>
