@@ -67,7 +67,7 @@ export default {
     },
     methods: {
         async getData() {
-            const response = await fetch(`${config.backendUrl}/upload/pipeline-status/${this.pipelineRunId}`);
+            const response = await fetch(`${config.backendUrl}/upload/data/${this.pipelineRunId}`);
             const result = await response.json();
 
             this.items = result.items;
