@@ -17,7 +17,7 @@ export default {
         }
     },
     async mounted() {
-        this.intervalId = setInterval(() => this.getStatus(), 10000);
+        this.intervalId = setInterval(() => this.getStatus(), 3000);
     },
     methods: {
         async getStatus() {
